@@ -55,6 +55,17 @@ class _MainAppNavState extends State<MainApp> {
               ]
             ),
             const VerticalDivider(thickness: 1, width: 1),
+
+            // main content
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("selectedIndex: $_selectedIndex"),
+                  const SizedBox(height: 20)
+                ],
+              ),
+            ),
           ],
         ),
       ),
