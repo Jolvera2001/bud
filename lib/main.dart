@@ -1,3 +1,5 @@
+import 'package:bud/screens/dashboard.dart';
+import 'package:bud/screens/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +36,12 @@ class _MainAppNavState extends State<MainApp> {
   int _selectedIndex = 0;
   NavigationRailLabelType labelType = NavigationRailLabelType.all;
 
+  // screens
+  final List<Widget> _screens = const [
+    Dashboard(),
+    Transactions()
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +51,21 @@ class _MainAppNavState extends State<MainApp> {
           children: [
             NavigationRail(
               selectedIndex: _selectedIndex,
+              labelType: labelType,
+              onDestinationSelected: (int index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
               destinations: const <NavigationRailDestination> [
                   NavigationRailDestination(
-                    icon: Icon(Icons.dashboard), 
+                    icon: Icon(Icons.dashboard_outlined),
+                    selectedIcon: Icon(Icons.dashboard), 
                     label: Text("Dashboard")
                   ),
                   NavigationRailDestination(
-                    icon: Icon(Icons.add_to_photos_sharp), 
+                    icon: Icon(Icons.add_to_photos_outlined),
+                    selectedIcon: Icon(Icons.add_to_photos), 
                     label: Text("Transactions")
                   )
               ]
@@ -58,13 +74,7 @@ class _MainAppNavState extends State<MainApp> {
 
             // main content
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("selectedIndex: $_selectedIndex"),
-                  const SizedBox(height: 20)
-                ],
-              ),
+              child: _screens[_selectedIndex],
             ),
           ],
         ),
