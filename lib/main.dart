@@ -1,5 +1,6 @@
 import 'package:bud/screens/dashboard.dart';
 import 'package:bud/screens/transactions.dart';
+import 'package:bud/viewmodels/transactions_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,7 @@ class BudApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (context) => SomeModel())
+        ChangeNotifierProvider(create: (context) => TransactionsViewmodel())
       ],
       child: MainApp(),
     );
