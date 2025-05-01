@@ -5,8 +5,21 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("Dashboard"),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Text(
+                "Dashboard",
+                style: TextStyle(fontSize: 28),
+              ),
+            ],
+          ), 
+        ),
+        Divider(thickness: 1, height: 1,),
+      ],
     );
   }
 }
