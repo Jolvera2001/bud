@@ -7,6 +7,8 @@ void main() {
   runApp(const BudApp());
 }
 
+// entry point of app
+// mainly DI setup for Providers and future BLoCs
 class BudApp extends StatelessWidget {
   const BudApp({super.key});
 
