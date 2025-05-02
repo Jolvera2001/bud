@@ -7,10 +7,6 @@ void main() {
   runApp(const BudApp());
 }
 
-class SomeModel {
-
-}
-
 class BudApp extends StatelessWidget {
   const BudApp({super.key});
 
