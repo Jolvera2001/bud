@@ -8,7 +8,9 @@ class RecurringTransactions {
   DateTime? createdAt;
   DateTime? updatedAt;
   
+  @Index()
   String? name;
+  @Index()
   double? amount;
   @enumerated
   late TransactionPattern pattern;
