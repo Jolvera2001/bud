@@ -1,5 +1,7 @@
 import 'package:isar/isar.dart';
 
+part 'model_embedded.g.dart';
+
 @embedded
 class Description {
   String? notes;

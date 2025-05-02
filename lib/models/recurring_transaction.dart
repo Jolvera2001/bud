@@ -2,8 +2,10 @@ import 'package:bud/models/model_embedded.dart';
 import 'package:bud/models/model_enums.dart';
 import 'package:isar/isar.dart';
 
+part 'recurring_transaction.g.dart';
+
 @collection
-class RecurringTransactions {
+class RecurringTransaction {
   Id id = Isar.autoIncrement;
   DateTime? createdAt;
   DateTime? updatedAt;
