@@ -14,4 +14,8 @@ class IsarDatabase {
       directory: dir.path,
     );
   }
+
+  Future<void> close() async {
+    await _isar.close();
+  }
 }
