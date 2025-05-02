@@ -2,14 +2,14 @@ import 'package:bud/screens/dashboard.dart';
 import 'package:bud/screens/transactions.dart';
 import 'package:flutter/material.dart';
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+class BudApp extends StatefulWidget {
+  const BudApp({super.key});
 
   @override
-  State<MainApp> createState() =>  _MainAppNavState();
+  State<BudApp> createState() =>  _MainAppNavState();
 }
 
-class _MainAppNavState extends State<MainApp> {
+class _MainAppNavState extends State<BudApp> {
   int _selectedIndex = 0;
   NavigationRailLabelType labelType = NavigationRailLabelType.all;
 
