@@ -1,4 +1,5 @@
 import 'package:bud/screens/dashboard.dart';
+import 'package:bud/screens/documentation.dart';
 import 'package:bud/screens/transactions.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,8 @@ class _MainAppNavState extends State<BudApp> {
   // screens
   final List<Widget> _screens = const [
     Dashboard(),
-    Transactions()
+    Transactions(),
+    Documentation()
   ];
 
 
