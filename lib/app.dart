@@ -44,6 +44,11 @@ class _MainAppNavState extends State<BudApp> {
                     icon: Icon(Icons.add_to_photos_outlined),
                     selectedIcon: Icon(Icons.add_to_photos), 
                     label: Text("Transactions")
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.book_outlined),
+                    selectedIcon: Icon(Icons.book), 
+                    label: Text("Docs")
                   )
               ]
             ),
