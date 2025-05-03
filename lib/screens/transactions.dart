@@ -39,10 +39,6 @@ class Transactions extends StatelessWidget {
               }, 
               child: Text("Open dialog"),
             ),
-            Text(viewModel.name),
-            TextField(
-              onChanged: (value) => viewModel.updateName(value),
-            )
           ],
         );
       }

@@ -21,7 +21,6 @@ class _MainAppNavState extends State<BudApp> {
     Documentation()
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -5,6 +5,21 @@ class Documentation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column();
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Text(
+                "Documentation",
+                style: TextStyle(fontSize: 28),
+              ),
+            ],
+          ), 
+        ),
+        Divider(thickness: 1, height: 1,),
+      ],
+    );
   }
 }
