@@ -9,32 +9,25 @@ Future<T?> showFormDialog<T>({
     context: context,
     barrierDismissible: true,
     barrierLabel: formLabel,
+    barrierColor: Colors.black54,
+    transitionDuration: Duration(milliseconds: 500),
     pageBuilder:
         (_, _, _) => Align(
           alignment: Alignment.centerRight,
           child: Material(
-            color: Colors.transparent,
-            child: Container(
+            color: Colors.white,
+            elevation: 24,
+            child: SizedBox(
               height: double.infinity,
               width: MediaQuery.of(context).size.width * 0.3,
-              decoration: BoxDecoration(
-                color: Theme.of(context).dialogTheme.backgroundColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 10.0,
-                    offset: Offset(-5, 0),
-                  ),
-                ],
-              ),
-              child:
-                  form, // TODO: handle this later for dynamic form providing thingy
+              child: form, // TODO: handle this later for dynamic form providing thingy
             ),
           ),
         ),
     transitionBuilder: (_, anim, _, child) {
       return SlideTransition(
-        position: Tween(begin: Offset(1, 0), end: Offset(0, 0)).animate(anim),
+        position: Tween(begin: Offset(1, 0), end: Offset(0, 0))
+          .animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
         child: child,
       );
     },
