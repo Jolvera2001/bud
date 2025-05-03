@@ -19,7 +19,7 @@ Future<T?> showFormDialog<T>({
         child: SizedBox(
           height: double.infinity,
           width: MediaQuery.of(context).size.width * 0.3,
-          child: form, // TODO: handle this later for dynamic form providing thingy
+          child: form,
         ),
       ),
     ),
