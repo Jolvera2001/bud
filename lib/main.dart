@@ -1,5 +1,5 @@
 import 'package:bud/app.dart';
-import 'package:bud/repository/isar_database.dart';
+import 'package:bud/services/isar_database.dart';
 import 'package:bud/services/logger_service.dart';
 import 'package:bud/viewmodels/transactions_viewmodel.dart';
 import 'package:flutter/material.dart';
