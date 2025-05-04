@@ -8,7 +8,7 @@ class IsarDatabase {
   Isar get isar => _isar; 
 
   Future<void> initialize() async {
-    final dir = await getApplicationDocumentsDirectory();
+    final dir = await getApplicationSupportDirectory();
     _isar = await Isar.open(
       [RecurringTransactionSchema],
       directory: dir.path,
