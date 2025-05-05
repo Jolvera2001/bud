@@ -77,6 +77,55 @@ class _TransactionFormState extends State<TransactionForm> {
                 ),
               ),
               SizedBox(height: 16),
+              DropdownButtonFormField<TransactionPattern>(
+                decoration: InputDecoration(
+                  labelText: "Frequency",
+                  border: OutlineInputBorder()
+                ),
+                value: patternSelection.first,
+                items: [
+                  DropdownMenuItem(value: TransactionPattern.weekly, child: Text("Weekly")),
+                  DropdownMenuItem(value: TransactionPattern.biweekly, child: Text("Biweekly")),
+                  DropdownMenuItem(value: TransactionPattern.bimonthly, child: Text("Bimonthly")),
+                  DropdownMenuItem(value: TransactionPattern.monthly, child: Text("Monthly")),
+                  DropdownMenuItem(value: TransactionPattern.annually, child: Text("Annually")),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    patternSelection = {value!};
+                  });
+                }
+              ),
+              // SegmentedButton<TransactionPattern>(
+              //   segments: const <ButtonSegment<TransactionPattern>>[
+              //     ButtonSegment<TransactionPattern>(
+              //       value: TransactionPattern.weekly,
+              //       label: Text("weekly", overflow: TextOverflow.ellipsis)
+              //     ),
+              //     ButtonSegment<TransactionPattern>(
+              //       value: TransactionPattern.biweekly,
+              //       label: Text("biweekly", overflow: TextOverflow.ellipsis)
+              //     ),
+              //     ButtonSegment<TransactionPattern>(
+              //       value: TransactionPattern.bimonthly,
+              //       label: Text("bimonthly", overflow: TextOverflow.ellipsis)
+              //     ),
+              //     ButtonSegment<TransactionPattern>(
+              //       value: TransactionPattern.monthly,
+              //       label: Text("monthly", overflow: TextOverflow.ellipsis)
+              //     ),
+              //     ButtonSegment<TransactionPattern>(
+              //       value: TransactionPattern.annually,
+              //       label: Text("annually", overflow: TextOverflow.ellipsis)
+              //     ),
+              //   ], 
+              //   selected: patternSelection,
+              //   onSelectionChanged: (Set<TransactionPattern> newSelection) {
+              //     setState(() {
+              //       patternSelection = newSelection;
+              //     });
+              //   },
+              // ),
               typeSelection.first == TransactionType.income 
                 ? Text("Income selected")
                 : Text("Expense selected")
