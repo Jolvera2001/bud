@@ -1,3 +1,4 @@
+import 'package:bud/models/model_enums.dart';
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatefulWidget {
@@ -10,6 +11,10 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+
+  Set<TransactionType> typeSelection = <TransactionType>{TransactionType.income};
+  Set<TransactionPattern> patternSelection = <TransactionPattern>{TransactionPattern.weekly};
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -28,10 +33,10 @@ class _TransactionFormState extends State<TransactionForm> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text("Test Form", style: Theme.of(context).textTheme.headlineSmall),
+              child: Text("New Transaction", style: Theme.of(context).textTheme.headlineSmall),
             ),
             IconButton(
-              onPressed: () =>  Navigator.pop(context), 
+              onPressed: () =>  Navigator.pop(context),
               icon: Icon(Icons.close)
             ),
           ],
@@ -41,22 +46,56 @@ class _TransactionFormState extends State<TransactionForm> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  border: OutlineInputBorder(),
-                ),
+              SegmentedButton<TransactionType>(
+                segments: const <ButtonSegment<TransactionType>>[
+                  ButtonSegment<TransactionType>(
+                    value: TransactionType.income,
+                    label: Text("income")
+                  ),
+                  ButtonSegment<TransactionType>(
+                    value: TransactionType.expense,
+                    label: Text("expense")
+                  ),
+                ], 
+                selected: typeSelection,
+                onSelectionChanged: (Set<TransactionType> newSelection) {
+                  setState(() {
+                    typeSelection = newSelection;
+                  });
+                },
               ),
               SizedBox(height: 16),
               TextField(
-                controller: _descriptionController,
                 decoration: InputDecoration(
-                  labelText: 'Description',
-                  border: OutlineInputBorder(),
+                  labelText: "Name"
                 ),
-                maxLines: 3,
               ),
+              SizedBox(height: 8),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: "Amount"
+                ),
+              ),
+              SizedBox(height: 16),
+              typeSelection.first == TransactionType.income 
+                ? Text("Income selected")
+                : Text("Expense selected")
+              // TextField(
+              //   controller: _nameController,
+              //   decoration: InputDecoration(
+              //     labelText: 'Name',
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16),
+              // TextField(
+              //   controller: _descriptionController,
+              //   decoration: InputDecoration(
+              //     labelText: 'Description',
+              //     border: OutlineInputBorder(),
+              //   ),
+              //   maxLines: 3,
+              // ),
             ],
           ),
         ),
