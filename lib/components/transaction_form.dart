@@ -158,22 +158,6 @@ class _TransactionFormState extends State<TransactionForm> {
                       ),
                     ],
                   ),
-              // TextField(
-              //   controller: _nameController,
-              //   decoration: InputDecoration(
-              //     labelText: 'Name',
-              //     border: OutlineInputBorder(),
-              //   ),
-              // ),
-              // SizedBox(height: 16),
-              // TextField(
-              //   controller: _descriptionController,
-              //   decoration: InputDecoration(
-              //     labelText: 'Description',
-              //     border: OutlineInputBorder(),
-              //   ),
-              //   maxLines: 3,
-              // ),
             ],
           ),
         ),
