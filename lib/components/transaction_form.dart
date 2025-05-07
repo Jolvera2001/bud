@@ -73,6 +73,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   });
                 },
               ),
+              SizedBox(height: 16,),
               CheckboxListTile(
                 title: Text("Repeating?"),
                 value: isRecurring,
