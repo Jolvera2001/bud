@@ -1,5 +1,6 @@
 import 'package:bud/models/model_enums.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class TransactionForm extends StatefulWidget {
   const TransactionForm({super.key});
@@ -72,11 +73,20 @@ class _TransactionFormState extends State<TransactionForm> {
                   });
                 },
               ),
-              SizedBox(height: 16),
-              TextField(decoration: InputDecoration(labelText: "Name")),
-              SizedBox(height: 8),
-              TextField(decoration: InputDecoration(labelText: "Amount")),
-              SizedBox(height: 16),
+              CheckboxListTile(
+                title: Text("Repeating?"),
+                value: isRecurring,
+                onChanged: (bool? value) {
+                  setState(() {
+                    isRecurring = value ?? false;
+                  });
+                },
+              ),
+              TableCalendar(
+                focusedDay: DateTime.now(),
+                firstDay: DateTime.utc(2010),
+                lastDay: DateTime.utc(2030),
+              ),
               DropdownButtonFormField<TransactionPattern>(
                 decoration: InputDecoration(
                   labelText: "Frequency",
@@ -108,15 +118,6 @@ class _TransactionFormState extends State<TransactionForm> {
                 onChanged: (value) {
                   setState(() {
                     patternSelection = {value!};
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text("Repeating?"),
-                value: isRecurring,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isRecurring = value ?? false;
                   });
                 },
               ),
@@ -158,6 +159,23 @@ class _TransactionFormState extends State<TransactionForm> {
                       ),
                     ],
                   ),
+              SizedBox(height: 16),
+              Divider(),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: "Name",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 8),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: "Amount",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
             ],
           ),
         ),

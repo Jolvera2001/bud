@@ -14,6 +14,7 @@ class RecurringTransaction {
   String? name;
   @Index()
   double? amount;
+  DateTime? anchor;
   @enumerated
   late TransactionPattern pattern;
 
