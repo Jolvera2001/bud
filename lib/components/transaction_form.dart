@@ -37,7 +37,7 @@ class _TransactionFormState extends State<TransactionForm> {
         children: [
           _buildHeader(context),
           Divider(),
-          _buildForm(context),
+          Form(key: _formKey, child: _buildForm(context)),
           _buildFooter(context),
         ],
       ),
@@ -78,11 +78,13 @@ class _TransactionFormState extends State<TransactionForm> {
             child: Text('Save'),
             onPressed: () {
               // Return a simple map with the form data
-              final result = {
-                'name': _nameController.text,
-                'description': _descriptionController.text,
-              };
-              Navigator.pop(context, result);
+              if (_formKey.currentState!.validate()) {
+                final result = {
+                  'name': _nameController.text,
+                  'description': _descriptionController.text,
+                };
+                Navigator.pop(context, result);
+              }
             },
           ),
         ],
@@ -167,10 +169,7 @@ class _TransactionFormState extends State<TransactionForm> {
               ? Column(
                 children: [
                   TextFormField(
-                    validator: (value) {
-                      _stringValidate(value);
-                      return null;
-                    },
+                    validator: _stringValidate,
                     decoration: InputDecoration(
                       labelText: "Source",
                       border: OutlineInputBorder(),
@@ -185,10 +184,7 @@ class _TransactionFormState extends State<TransactionForm> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          validator: (value) {
-                            _stringValidate(value);
-                            return null;
-                          },
+                          validator: _stringValidate,
                           decoration: InputDecoration(
                             labelText: "Payee",
                             border: OutlineInputBorder(),
@@ -198,10 +194,7 @@ class _TransactionFormState extends State<TransactionForm> {
                       SizedBox(width: 8),
                       Expanded(
                         child: TextFormField(
-                          validator: (value) {
-                            _stringValidate(value);
-                            return null;
-                          },
+                          validator: _stringValidate,
                           decoration: InputDecoration(
                             labelText: "Method",
                             border: OutlineInputBorder(),
@@ -215,14 +208,16 @@ class _TransactionFormState extends State<TransactionForm> {
           SizedBox(height: 16),
           Divider(),
           SizedBox(height: 16),
-          TextField(
+          TextFormField(
+            validator: _stringValidate,
             decoration: InputDecoration(
               labelText: "Name",
               border: OutlineInputBorder(),
             ),
           ),
           SizedBox(height: 8),
-          TextField(
+          TextFormField(
+            validator: _stringValidate,
             decoration: InputDecoration(
               labelText: "Amount",
               border: OutlineInputBorder(),
