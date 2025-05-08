@@ -125,11 +125,6 @@ class _TransactionFormState extends State<TransactionForm> {
               });
             },
           ),
-          TableCalendar(
-            focusedDay: DateTime.now(),
-            firstDay: DateTime.utc(2010),
-            lastDay: DateTime.utc(2030),
-          ),
           DropdownButtonFormField<TransactionPattern>(
             decoration: InputDecoration(
               labelText: "Frequency",
