@@ -23,48 +23,53 @@ const RecurringTransactionSchema = CollectionSchema(
       name: r'amount',
       type: IsarType.double,
     ),
-    r'createdAt': PropertySchema(
+    r'anchor': PropertySchema(
       id: 1,
+      name: r'anchor',
+      type: IsarType.dateTime,
+    ),
+    r'createdAt': PropertySchema(
+      id: 2,
       name: r'createdAt',
       type: IsarType.dateTime,
     ),
     r'description': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'description',
       type: IsarType.object,
       target: r'Description',
     ),
     r'expenseDetails': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'expenseDetails',
       type: IsarType.object,
       target: r'ExpenseDetails',
     ),
     r'incomeDetails': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'incomeDetails',
       type: IsarType.object,
       target: r'IncomeDetails',
     ),
     r'name': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'name',
       type: IsarType.string,
     ),
     r'pattern': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'pattern',
       type: IsarType.byte,
       enumMap: _RecurringTransactionpatternEnumValueMap,
     ),
     r'type': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'type',
       type: IsarType.byte,
       enumMap: _RecurringTransactiontypeEnumValueMap,
     ),
     r'updatedAt': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'updatedAt',
       type: IsarType.dateTime,
     )
@@ -160,29 +165,30 @@ void _recurringTransactionSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeDouble(offsets[0], object.amount);
-  writer.writeDateTime(offsets[1], object.createdAt);
+  writer.writeDateTime(offsets[1], object.anchor);
+  writer.writeDateTime(offsets[2], object.createdAt);
   writer.writeObject<Description>(
-    offsets[2],
+    offsets[3],
     allOffsets,
     DescriptionSchema.serialize,
     object.description,
   );
   writer.writeObject<ExpenseDetails>(
-    offsets[3],
+    offsets[4],
     allOffsets,
     ExpenseDetailsSchema.serialize,
     object.expenseDetails,
   );
   writer.writeObject<IncomeDetails>(
-    offsets[4],
+    offsets[5],
     allOffsets,
     IncomeDetailsSchema.serialize,
     object.incomeDetails,
   );
-  writer.writeString(offsets[5], object.name);
-  writer.writeByte(offsets[6], object.pattern.index);
-  writer.writeByte(offsets[7], object.type.index);
-  writer.writeDateTime(offsets[8], object.updatedAt);
+  writer.writeString(offsets[6], object.name);
+  writer.writeByte(offsets[7], object.pattern.index);
+  writer.writeByte(offsets[8], object.type.index);
+  writer.writeDateTime(offsets[9], object.updatedAt);
 }
 
 RecurringTransaction _recurringTransactionDeserialize(
@@ -193,31 +199,32 @@ RecurringTransaction _recurringTransactionDeserialize(
 ) {
   final object = RecurringTransaction();
   object.amount = reader.readDoubleOrNull(offsets[0]);
-  object.createdAt = reader.readDateTimeOrNull(offsets[1]);
+  object.anchor = reader.readDateTimeOrNull(offsets[1]);
+  object.createdAt = reader.readDateTimeOrNull(offsets[2]);
   object.description = reader.readObjectOrNull<Description>(
-    offsets[2],
+    offsets[3],
     DescriptionSchema.deserialize,
     allOffsets,
   );
   object.expenseDetails = reader.readObjectOrNull<ExpenseDetails>(
-    offsets[3],
+    offsets[4],
     ExpenseDetailsSchema.deserialize,
     allOffsets,
   );
   object.id = id;
   object.incomeDetails = reader.readObjectOrNull<IncomeDetails>(
-    offsets[4],
+    offsets[5],
     IncomeDetailsSchema.deserialize,
     allOffsets,
   );
-  object.name = reader.readStringOrNull(offsets[5]);
+  object.name = reader.readStringOrNull(offsets[6]);
   object.pattern = _RecurringTransactionpatternValueEnumMap[
-          reader.readByteOrNull(offsets[6])] ??
+          reader.readByteOrNull(offsets[7])] ??
       TransactionPattern.weekly;
   object.type = _RecurringTransactiontypeValueEnumMap[
-          reader.readByteOrNull(offsets[7])] ??
+          reader.readByteOrNull(offsets[8])] ??
       TransactionType.income;
-  object.updatedAt = reader.readDateTimeOrNull(offsets[8]);
+  object.updatedAt = reader.readDateTimeOrNull(offsets[9]);
   return object;
 }
 
@@ -233,34 +240,36 @@ P _recurringTransactionDeserializeProp<P>(
     case 1:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 2:
+      return (reader.readDateTimeOrNull(offset)) as P;
+    case 3:
       return (reader.readObjectOrNull<Description>(
         offset,
         DescriptionSchema.deserialize,
         allOffsets,
       )) as P;
-    case 3:
+    case 4:
       return (reader.readObjectOrNull<ExpenseDetails>(
         offset,
         ExpenseDetailsSchema.deserialize,
         allOffsets,
       )) as P;
-    case 4:
+    case 5:
       return (reader.readObjectOrNull<IncomeDetails>(
         offset,
         IncomeDetailsSchema.deserialize,
         allOffsets,
       )) as P;
-    case 5:
-      return (reader.readStringOrNull(offset)) as P;
     case 6:
+      return (reader.readStringOrNull(offset)) as P;
+    case 7:
       return (_RecurringTransactionpatternValueEnumMap[
               reader.readByteOrNull(offset)] ??
           TransactionPattern.weekly) as P;
-    case 7:
+    case 8:
       return (_RecurringTransactiontypeValueEnumMap[
               reader.readByteOrNull(offset)] ??
           TransactionType.income) as P;
-    case 8:
+    case 9:
       return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -658,6 +667,80 @@ extension RecurringTransactionQueryFilter on QueryBuilder<RecurringTransaction,
         upper: upper,
         includeUpper: includeUpper,
         epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction,
+      QAfterFilterCondition> anchorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'anchor',
+      ));
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction,
+      QAfterFilterCondition> anchorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'anchor',
+      ));
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction,
+      QAfterFilterCondition> anchorEqualTo(DateTime? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'anchor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction,
+      QAfterFilterCondition> anchorGreaterThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'anchor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction,
+      QAfterFilterCondition> anchorLessThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'anchor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction,
+      QAfterFilterCondition> anchorBetween(
+    DateTime? lower,
+    DateTime? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'anchor',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -1233,6 +1316,20 @@ extension RecurringTransactionQuerySortBy
   }
 
   QueryBuilder<RecurringTransaction, RecurringTransaction, QAfterSortBy>
+      sortByAnchor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'anchor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction, QAfterSortBy>
+      sortByAnchorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'anchor', Sort.desc);
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction, QAfterSortBy>
       sortByCreatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'createdAt', Sort.asc);
@@ -1316,6 +1413,20 @@ extension RecurringTransactionQuerySortThenBy
       thenByAmountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'amount', Sort.desc);
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction, QAfterSortBy>
+      thenByAnchor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'anchor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction, QAfterSortBy>
+      thenByAnchorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'anchor', Sort.desc);
     });
   }
 
@@ -1414,6 +1525,13 @@ extension RecurringTransactionQueryWhereDistinct
   }
 
   QueryBuilder<RecurringTransaction, RecurringTransaction, QDistinct>
+      distinctByAnchor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'anchor');
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, RecurringTransaction, QDistinct>
       distinctByCreatedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'createdAt');
@@ -1461,6 +1579,13 @@ extension RecurringTransactionQueryProperty on QueryBuilder<
       amountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'amount');
+    });
+  }
+
+  QueryBuilder<RecurringTransaction, DateTime?, QQueryOperations>
+      anchorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'anchor');
     });
   }
 
