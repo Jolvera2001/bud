@@ -1,4 +1,5 @@
 import 'package:bud/models/model_enums.dart';
+import 'package:bud/models/recurring_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -79,10 +80,13 @@ class _TransactionFormState extends State<TransactionForm> {
             onPressed: () {
               // Return a simple map with the form data
               if (_formKey.currentState!.validate()) {
-                final result = {
-                  'name': _nameController.text,
-                  'description': _descriptionController.text,
-                };
+                final result = _buildTransaction(
+                  
+                );
+                    // {
+                    //   'name': _nameController.text,
+                    //   'description': _descriptionController.text,
+                    // };
                 Navigator.pop(context, result);
               }
             },
@@ -229,5 +233,11 @@ class _TransactionFormState extends State<TransactionForm> {
       return 'Field cannot be empty';
     }
     return null;
+  }
+
+  RecurringTransaction _buildTransaction() {
+    return RecurringTransaction(
+      
+    );
   }
 }
